@@ -17,6 +17,7 @@ dark_ambiance		0:44	1.0
 
 bensound_deepblue	4:48	1.0
 bensound_ofeliasdream	4:59	1.0
+bensound_slowmotion	3:26	1.0
 -> (c) bensound (AFAIK public domain)
 
 rainymemory		2:10	1.0
