@@ -10,7 +10,6 @@ mpd.modpath=minetest.get_modpath("mpd")
 if not mpd.modpath then
 	error("mpd mod folder has to be named 'mpd'!")
 end
-mpd.songs=dofile(mpd.modpath.."/songs.lua")
 --{name, length, gain~1}
 mpd.songs = {}
 local sfile, sfileerr=io.open(mpd.modpath.."/songs.txt")
