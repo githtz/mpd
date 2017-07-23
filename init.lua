@@ -94,7 +94,7 @@ mpd.next_song=function()
 	local next
 	-- create new list if no songs are in randomized list
 	if #mpd.randomized == 0 then
-		minetest.log("action", "[mpd] Creating randomized playlist")
+		minetest.log("info", "[mpd] Creating randomized playlist")
 		local nums = {}
 		local entry = 0
 		for i=1, #mpd.songs do
@@ -108,7 +108,7 @@ mpd.next_song=function()
 			entry = table.remove(nums, math.random(1,#nums))
 			table.insert(mpd.randomized, entry)
 		until #nums == 0
-		minetest.log("action", "[mpd] ...done")
+		minetest.log("info", "[mpd] ...done")
 	end
 	-- extract next song to be played
 	next=table.remove(mpd.randomized)
