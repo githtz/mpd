@@ -12,6 +12,7 @@ if not mpd.modpath then
 end
 --{name, length, gain~1}
 mpd.songs = {}
+mpd.randomized = {}
 local sfile, sfileerr=io.open(mpd.modpath.."/songs.txt")
 if not sfile then error("Error opening songs.txt: "..sfileerr) end
 for line in sfile:lines() do
@@ -91,9 +92,26 @@ end
 
 mpd.next_song=function()
 	local next
-	repeat
-		next=math.random(1,#mpd.songs)
-	until #mpd.songs==1 or next~=mpd.id_last_played
+	-- create new list if no songs are in randomized list
+	if #mpd.randomized == 0 then
+		minetest.log("info", "[mpd] Creating randomized playlist")
+		local nums = {}
+		local entry = 0
+		for i=1, #mpd.songs do
+			-- add all songs except last one played to temporary list
+			if mpd.id_last_played ~= i then
+				nums[i]=i
+			end
+		end
+		-- randomize temporary list and save as randomized
+		repeat
+			entry = table.remove(nums, math.random(1,#nums))
+			table.insert(mpd.randomized, entry)
+		until #nums == 0
+		minetest.log("info", "[mpd] ...done")
+	end
+	-- extract next song to be played
+	next=table.remove(mpd.randomized)
 	mpd.play_song(next)
 end
 
