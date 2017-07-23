@@ -15,7 +15,7 @@ mpd.songs = {}
 local sfile, sfileerr=io.open(mpd.modpath.."/songs.txt")
 if not sfile then error("Error opening songs.txt: "..sfileerr) end
 for line in sfile:lines() do
-	if line~="" and line[1]~="#" then
+	if line~="" and string.sub(line, 1, 1)~="#" then
 		local name, timeMinsStr, timeSecsStr, gainStr = string.match(line, "^(%S+)%s+(%d+):([%d%.]+)%s+([%d%.]+)$")
 		local timeMins, timeSecs, gain = tonumber(timeMinsStr), tonumber(timeSecsStr), tonumber(gainStr)
 		if name and timeMins and timeSecs and gain then
